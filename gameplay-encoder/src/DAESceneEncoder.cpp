@@ -740,7 +740,14 @@ void DAESceneEncoder::loadScene(const domVisual_scene* visualScene)
     Scene* scene = new Scene();
 
     const domNode_Array& nodes = visualScene->getNode_array();
-    scene->setId(visualScene->getId());
+    if(visualScene->getName())
+    {
+        scene->setId(visualScene->getName());
+    }
+    else
+    {
+        scene->setId(visualScene->getId());
+    }
     if (scene->getId().length() == 0)
     {
         scene->setId("__SCENE__");
@@ -821,7 +828,14 @@ Node* DAESceneEncoder::loadNode(domNode* n, Node* parent)
     }
 
     // Set node id
-    node->setId(n->getId());
+    if(n->getName())
+    {
+        node->setId(n->getName());
+    }
+    else
+    {
+        node->setId(n->getId());
+    }
 
     // If this node has an id then add it to the ref table
     _gamePlayFile.addNode(node);
@@ -1075,7 +1089,14 @@ void DAESceneEncoder::loadControllerInstance(const domNode* n, Node* node)
 Camera* DAESceneEncoder::loadCamera(const domCamera* cameraRef)
 {
     Camera* camera = new Camera();
-    camera->setId(cameraRef->getId());
+    if(cameraRef->getName() == NULL)
+    {
+        camera->setId(cameraRef->getId());
+    }
+    else
+    {
+        camera->setId(cameraRef->getName());
+    }
 
     // Optics
     const domCamera::domOpticsRef opticsRef = cameraRef->getOptics();
@@ -1142,7 +1163,14 @@ Camera* DAESceneEncoder::loadCamera(const domCamera* cameraRef)
 Light* DAESceneEncoder::loadLight(const domLight* lightRef)
 {
     Light* light = new Light();
-    light->setId(lightRef->getId());
+    if(lightRef->getName())
+    {
+        light->setId(lightRef->getName());
+    }
+    else
+    {
+        light->setId(lightRef->getId());
+    }
 
     const domLight::domTechnique_commonRef techRef = lightRef->getTechnique_common();
 
