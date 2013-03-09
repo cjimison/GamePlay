@@ -93,10 +93,13 @@ bool Game::startup()
 {
     if (_state != UNINITIALIZED)
         return false;
-
+#ifndef TESTING
     setViewport(Rectangle(0.0f, 0.0f, (float)_width, (float)_height));
+#endif
     RenderState::initialize();
+#ifndef TESTING
     FrameBuffer::initialize();
+#endif
 
     _animationController = new AnimationController();
     _animationController->initialize();

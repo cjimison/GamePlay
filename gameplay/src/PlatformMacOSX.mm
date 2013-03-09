@@ -1504,7 +1504,7 @@ Platform* Platform::create(Game* game, void* attachToWindow)
     return platform;
 }
 
-int Platform::enterMessagePump()
+void Platform::prepareMessagePump()
 {
     NSString* bundlePath = [[NSBundle mainBundle] bundlePath];
     NSString* path = [bundlePath stringByAppendingString:@"/Contents/Resources/"];
@@ -1541,7 +1541,11 @@ int Platform::enterMessagePump()
     // Set the scale factors for the mouse movement used to simulate the accelerometer.
     ACCELEROMETER_FACTOR_X = 90.0f / __width;
     ACCELEROMETER_FACTOR_Y = 90.0f / __height;
-
+}
+    
+int Platform::enterMessagePump()
+{
+    prepareMessagePump();
     NSAutoreleasePool* pool = [NSAutoreleasePool new];
     NSApplication* app = [NSApplication sharedApplication];
     NSRect screenBounds = [[NSScreen mainScreen] frame];

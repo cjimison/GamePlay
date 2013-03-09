@@ -12,21 +12,25 @@ using namespace gameplay;
  */
 int main(int argc, char** argv)
 {
-#ifdef TESTING
-    testing::InitGoogleTest(&argc, argv);
-    int rez =  RUN_ALL_TESTS();
-    return rez;
-#else
+    int result = 0;
     NSAutoreleasePool *p = [[NSAutoreleasePool alloc] init];
     Game* game = Game::getInstance();
     Platform* platform = Platform::create(game);
     GP_ASSERT(platform);
-    int result = platform->enterMessagePump();
+#ifdef TESTING
+    // Start the testing out
+    platform->prepareMessagePump();
+    testing::InitGoogleTest(&argc, argv);
+    result =  RUN_ALL_TESTS();
+#else
+    // Start up the game
+    result = platform->enterMessagePump();
+#endif
     delete platform;
     [p release];
+    
     return result;
-#endif
-
+    
 }
 
 #endif

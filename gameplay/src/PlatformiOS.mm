@@ -1310,6 +1310,8 @@ Platform* Platform::create(Game* game, void* attachToWindow)
     return platform;
 }
 
+void Platform::prepareMessagePump() {}
+    
 int Platform::enterMessagePump()
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];

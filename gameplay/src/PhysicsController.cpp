@@ -445,8 +445,10 @@ void PhysicsController::initialize()
     _world->getDispatchInfo().m_allowedCcdPenetration = 0.0001f;
 
     // Set up debug drawing.
+#ifndef TESTING
     _debugDrawer = new DebugDrawer();
     _world->setDebugDrawer(_debugDrawer);
+#endif
 }
 
 void PhysicsController::finalize()

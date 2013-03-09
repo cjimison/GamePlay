@@ -55,6 +55,7 @@ public:
      * @return The platform message pump return code.
      */
     int enterMessagePump();
+    void prepareMessagePump();
 
 private:
     
