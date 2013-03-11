@@ -297,7 +297,9 @@ typedef GLuint RenderBufferHandle;
  * mode and is therefore safe to use for realtime/per-frame GL
  * function calls.
  */
-#ifdef NDEBUG
+#ifdef TESTING
+#define GL_ASSERT( gl_code )
+#elif defined(NDEBUG)
 #define GL_ASSERT( gl_code ) gl_code
 #else
 #define GL_ASSERT( gl_code ) do \

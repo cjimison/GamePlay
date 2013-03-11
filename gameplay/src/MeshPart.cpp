@@ -24,7 +24,6 @@ MeshPart* MeshPart::create(Mesh* mesh, unsigned int meshIndex, Mesh::PrimitiveTy
     GLuint vbo;
     GL_ASSERT( glGenBuffers(1, &vbo) );
     GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo) );
-
     unsigned int indexSize = 0;
     switch (indexFormat)
     {
@@ -39,12 +38,12 @@ MeshPart* MeshPart::create(Mesh* mesh, unsigned int meshIndex, Mesh::PrimitiveTy
         break;
     default:
         GP_ERROR("Unsupported index format (%d).", indexFormat);
+#ifndef TESTING
         glDeleteBuffers(1, &vbo);
+#endif
         return NULL;
     }
-
     GL_ASSERT( glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize * indexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
-
     MeshPart* part = new MeshPart();
     part->_mesh = mesh;
     part->_meshIndex = meshIndex;
